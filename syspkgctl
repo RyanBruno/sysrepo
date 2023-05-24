@@ -33,17 +33,21 @@ while (( $# )); do
         exit 0
         ;;
     build)
-        makepkg
+        makepkg --sign
         exit 0
         ;;
     release)
-        cp *.pkg.tar.* ${SYSREPO}
+        /usr/bin/cp -u *.pkg.tar.* ${SYSREPO}
         git -C ${SYSREPO} add ${SYSREPO}/*.pkg.tar.*
         exit 0
         ;;
     update)
-        repo-add ${SYSREPO}/system.db.tar.gz ${SYSREPO}/*.pkg.tar.*
-        repo-add ${SYSREPO}/system.db ${SYSREPO}/*.pkg.tar.*
+        repo-add ${SYSREPO}/system.db.tar.gz ${SYSREPO}/*.pkg.tar.zst
+        rm ${SYSREPO}/system.db
+        rm ${SYSREPO}/system.files
+        cp ${SYSREPO}/system.db.tar.gz ${SYSREPO}/system.db
+        cp ${SYSREPO}/system.files.tar.gz ${SYSREPO}/system.files
+
         git -C ${SYSREPO} add ${SYSREPO}/*.files*
         git -C ${SYSREPO} add ${SYSREPO}/*.db*
         exit 0
