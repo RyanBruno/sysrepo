@@ -43,10 +43,15 @@ while (( $# )); do
         ;;
     update)
         repo-add ${SYSREPO}/system.db.tar.gz ${SYSREPO}/*.pkg.tar.zst
+        rm ${SYSREPO}/*old*
         rm ${SYSREPO}/system.db
         rm ${SYSREPO}/system.files
+        #rm ${SYSREPO}/system.db.sig
+        #rm ${SYSREPO}/system.files.sig
         cp ${SYSREPO}/system.db.tar.gz ${SYSREPO}/system.db
         cp ${SYSREPO}/system.files.tar.gz ${SYSREPO}/system.files
+        #cp ${SYSREPO}/system.db.tar.gz.sig ${SYSREPO}/system.db.sig
+        #cp ${SYSREPO}/system.files.tar.gz.sig ${SYSREPO}/system.files.sig
 
         git -C ${SYSREPO} add ${SYSREPO}/*.files*
         git -C ${SYSREPO} add ${SYSREPO}/*.db*
