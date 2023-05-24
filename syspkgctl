@@ -43,6 +43,7 @@ while (( $# )); do
         ;;
     update)
         repo-add ${SYSREPO}/system.db.tar.gz ${SYSREPO}/*.pkg.tar.*
+        repo-add ${SYSREPO}/system.db ${SYSREPO}/*.pkg.tar.*
         git -C ${SYSREPO} add ${SYSREPO}/*.files*
         git -C ${SYSREPO} add ${SYSREPO}/*.db*
         exit 0
